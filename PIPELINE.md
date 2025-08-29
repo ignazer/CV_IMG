@@ -1,9 +1,24 @@
 # 🚀 DevOps Pipeline Documentation
-## CV Project - Ignacio Muñoz
+## CV Multi-idioma - Ignacio Muñoz
 
 ### 📋 **Resumen del Pipeline**
 
-Este proyecto implementa un pipeline completo de **CI/CD (Continuous Integration/Continuous Deployment)** para un CV profesional, demostrando prácticas modernas de DevOps en un contexto real y aplicable.
+Este proyecto implementa un **pipeline completo de CI/CD** para un CV profesional **multi-idioma (Inglés/Español)**, demostrando prácticas avanzadas de DevOps, internacionalización y arquitectura escalable.
+
+---
+
+## 🌍 **Arquitectura Multi-idioma**
+
+```
+📂 Proyecto
+├── 🇺🇸 index.html          # CV en Inglés (Principal)
+├── 🇪🇸 es/
+│   └── index.html          # CV en Español  
+├── 🎨 assets/
+│   ├── styles.css          # Estilos compartidos
+│   └── script.js           # JavaScript compartido
+└── 🔧 .github/workflows/   # Pipeline DevOps
+```
 
 ---
 
@@ -12,16 +27,16 @@ Este proyecto implementa un pipeline completo de **CI/CD (Continuous Integration
 ```mermaid
 graph TD
     A[Push to Main] --> B[Trigger GitHub Actions]
-    B --> C[Lint & Validate]
+    B --> C[Lint HTML EN/ES]
     B --> D[Security Scan]
-    B --> E[Performance Test]
+    B --> E[Validate CSS]
     C --> F{All Tests Pass?}
     D --> F
     E --> F
-    F -->|Yes| G[Build & Deploy]
+    F -->|Yes| G[Build Multi-lang]
     F -->|No| H[❌ Fail Pipeline]
     G --> I[Deploy to GitHub Pages]
-    I --> J[✅ Notify Success]
+    I --> J[✅ Success - Both Languages]
     H --> K[📧 Notify Failure]
 ```
 
@@ -29,27 +44,21 @@ graph TD
 
 ## 🔧 **Componentes del Pipeline**
 
-### **1. 🔍 Lint & Validate**
-- **HTMLHint**: Validación de sintaxis y estructura HTML
-- **StyleLint**: Linting de CSS siguiendo estándares
-- **Link Checker**: Verificación de enlaces rotos
-- **Configuración**: `.htmlhintrc`, `.stylelintrc.json`
+### **1. 🔍 Multi-language Validation**
+- **html-validate**: Validación de HTML en inglés y español
+- **StyleLint**: Linting de CSS compartido
+- **Link Checker**: Verificación de enlaces en ambas versiones
+- **SEO Check**: Validación de meta tags hreflang
 
 ### **2. 🛡️ Security Scan**
 - **Trivy**: Escaneo de vulnerabilidades de seguridad
 - **SARIF Upload**: Integración con GitHub Security Advisor
-- **Reportes**: Almacenados en GitHub Security tab
+- **Dependency Check**: Análisis de dependencias npm
 
-### **3. 📊 Performance Test**
-- **Lighthouse CI**: Auditoría automática de performance
-- **Métricas evaluadas**: Performance, Accessibility, SEO, Best Practices
-- **Umbrales mínimos**: 80% performance, 90% accessibility
-- **Configuración**: `lighthouserc.js`
-
-### **4. 🚀 Build & Deploy**
-- **Artifact Generation**: Creación de build optimizado
-- **GitHub Pages**: Deploy automático
-- **Build Info**: Metadata de cada deploy (fecha, commit, branch)
+### **3. 🚀 Build & Deploy**
+- **Multi-language Build**: Procesamiento de ambas versiones
+- **GitHub Pages**: Deploy automático con estructura i18n
+- **SEO Optimization**: URLs canónicas y hreflang tags
 
 ---
 
@@ -58,13 +67,12 @@ graph TD
 ```
 .github/
 └── workflows/
-    └── ci-cd.yml           # Pipeline principal
-.htmlhintrc                 # Configuración HTML linting
-.stylelintrc.json          # Configuración CSS linting
-lighthouserc.js            # Configuración Lighthouse CI
-README.md                  # Documentación general
-PIPELINE.md                # Este archivo
-PRINT_GUIDE.md            # Guía de impresión PDF
+    └── ci-cd.yml              # Pipeline multi-idioma
+package.json                   # Dependencias modernas (html-validate, stylelint 16.x)
+.htmlvalidate.json            # Configuración HTML validation
+README.md                     # Documentación completa
+PIPELINE.md                   # Este archivo
+.gitignore                    # Control de versiones
 ```
 
 ---
@@ -77,10 +85,11 @@ PRINT_GUIDE.md            # Guía de impresión PDF
 # Dependencias: Node.js 18
 # Duración estimada: 1-2 minutos
 ```
-- Instala herramientas de linting
-- Valida sintaxis HTML
-- Verifica estándares CSS
-- Busca enlaces rotos
+- Instala html-validate y stylelint modernos
+- **Valida HTML Inglés**: `npx html-validate index.html`
+- **Valida HTML Español**: `npx html-validate es/index.html`  
+- **Verifica CSS compartido**: `npx stylelint "**/*.css"`
+- **Elimina vulnerabilidades**: Zero dependency issues
 
 ### **Job 2: `security-scan`**
 ```yaml
@@ -88,38 +97,22 @@ PRINT_GUIDE.md            # Guía de impresión PDF
 # Herramienta: Trivy Scanner
 # Duración estimada: 30-60 segundos
 ```
-- Escanea vulnerabilidades en código
+- Escanea vulnerabilidades en ambas versiones
+- Analiza dependencias npm modernas
 - Genera reporte SARIF
-- Sube resultados a GitHub Security
+- Zero vulnerabilidades detectadas
 
-### **Job 3: `performance-test`**
-```yaml
-# Ejecuta en: ubuntu-latest
-# Herramienta: Lighthouse CI
-# Duración estimada: 1-2 minutos
-```
-- Inicia servidor local
-- Ejecuta auditoría Lighthouse
-- Evalúa métricas contra umbrales
-
-### **Job 4: `build-and-deploy`**
+### **Job 3: `build-and-deploy`**
 ```yaml
 # Ejecuta en: ubuntu-latest
 # Dependencias: jobs anteriores exitosos
 # Duración estimada: 1-2 minutos
 ```
-- Construye artefactos optimizados
-- Genera información de build
-- Despliega a GitHub Pages
-
-### **Job 5: `notify`**
-```yaml
-# Ejecuta en: ubuntu-latest
-# Condición: always()
-# Duración estimada: < 30 segundos
-```
-- Notifica resultado del deploy
-- Proporciona URL del CV actualizado
+- Construye estructura multi-idioma
+- Optimiza assets compartidos
+- Despliega a GitHub Pages con URLs:
+  - 🇺🇸 `https://ignazer.github.io/CV_IMG/`
+  - 🇪🇸 `https://ignazer.github.io/CV_IMG/es/`
 
 ---
 
@@ -134,12 +127,25 @@ PRINT_GUIDE.md            # Guía de impresión PDF
 
 ---
 
-## 📊 **Métricas y Umbrales**
+## 🌍 **Características Multi-idioma**
 
-### **Lighthouse CI Thresholds:**
-```javascript
-assertions: {
-  'categories:performance': ['error', {minScore: 0.8}],    // 80%
+### **SEO Internacional:**
+```html
+<!-- Meta tags hreflang -->
+<link rel="alternate" hreflang="en" href="../">
+<link rel="alternate" hreflang="es" href="./">
+<link rel="canonical" href="https://ignazer.github.io/CV_IMG/es/">
+```
+
+### **Navegación entre idiomas:**
+- Selector de idioma con banderas 🇺🇸/🇪🇸
+- URLs amigables para SEO
+- Shared assets para performance
+
+### **Validación dual:**
+- Pipeline valida ambas versiones
+- Misma configuración de linting
+- Arquitectura escalable para más idiomas
   'categories:accessibility': ['error', {minScore: 0.9}],  // 90%
   'categories:best-practices': ['error', {minScore: 0.8}], // 80%
   'categories:seo': ['error', {minScore: 0.8}],           // 80%
@@ -153,42 +159,46 @@ assertions: {
 
 ---
 
-## 🔒 **Seguridad y Permisos**
+## 🔒 **Seguridad y Modernización**
 
 ### **GitHub Actions Permissions:**
 ```yaml
 permissions:
   contents: read          # Leer código fuente
-  pages: write           # Escribir a GitHub Pages
+  pages: write           # Escribir a GitHub Pages  
   id-token: write        # Token para Pages
   security-events: write # Subir reportes de seguridad
 ```
 
-### **Secrets Utilizados:**
-- `GITHUB_TOKEN`: Token automático de GitHub
-- `LHCI_GITHUB_APP_TOKEN`: Para Lighthouse CI
+### **Dependencias Modernas:**
+- **html-validate 8.x**: Reemplaza htmlhint (deprecated)
+- **stylelint 16.x**: Versión moderna sin vulnerabilidades
+- **Zero vulnerabilities**: Todas las dependencias actualizadas
 
 ---
 
 ## 📈 **Beneficios Implementados**
 
 ### **Para el Desarrollo:**
+- ✅ **Multi-language Support**: CV en inglés y español
+- ✅ **Modern Tooling**: Zero vulnerabilidades, zero warnings
 - ✅ **Quality Gates**: No deploy si hay errores
-- ✅ **Automated Testing**: Validación en cada cambio
-- ✅ **Performance Monitoring**: Métricas automáticas
+- ✅ **Automated Validation**: Linting dual para ambas versiones
 - ✅ **Security Scanning**: Detección temprana de vulnerabilidades
 
 ### **Para el Negocio:**
+- ✅ **International Reach**: CV accesible en 2 idiomas
+- ✅ **SEO Optimizado**: Meta tags hreflang, URLs canónicas
 - ✅ **Zero Downtime**: Deploy automático sin interrupciones
-- ✅ **Rollback Capability**: Historial de deployments
-- ✅ **Consistent Quality**: Estándares automatizados
 - ✅ **Professional Image**: CV siempre actualizado
+- ✅ **Scalable Architecture**: Fácil agregar más idiomas
 
 ### **Para DevOps Learning:**
-- ✅ **Real CI/CD Pipeline**: Experiencia práctica
-- ✅ **Modern Tools**: GitHub Actions, Lighthouse, Trivy
-- ✅ **Best Practices**: Linting, testing, security
-- ✅ **Documentation**: Código y procesos documentados
+- ✅ **Real CI/CD Pipeline**: Experiencia práctica completa
+- ✅ **Internationalization**: Arquitectura multi-idioma
+- ✅ **Modern Tools**: html-validate, stylelint 16.x, Trivy
+- ✅ **Best Practices**: Linting, testing, security, i18n
+- ✅ **Documentation**: Código y procesos completamente documentados
 
 ---
 
@@ -196,19 +206,21 @@ permissions:
 
 ### **Pipeline Fails en Linting:**
 ```bash
-# Verificar localmente:
-npx htmlhint index.html
-npx stylelint "**/*.css"
+# Verificar localmente ambas versiones:
+npx html-validate index.html       # Inglés
+npx html-validate es/index.html    # Español
+npx stylelint "**/*.css"          # CSS compartido
 ```
 
-### **Performance Test Fails:**
-- Verificar que el contenido cargue en < 3 segundos
-- Revisar optimización de imágenes
-- Validar accesibilidad
+### **Multi-language Issues:**
+- Verificar paths relativos en es/index.html
+- Confirmar que assets/ sea accesible desde subdirectorios
+- Validar meta tags hreflang
 
 ### **Deploy Fails:**
-- Verificar permisos de GitHub Pages
-- Confirmar que rama `main` esté protegida correctamente
+- Verificar que ambas versiones estén en el build
+- Confirmar estructura de directorios
+- Validar permisos de GitHub Pages
 
 ---
 
@@ -216,44 +228,62 @@ npx stylelint "**/*.css"
 
 ### **Desarrollo Local:**
 ```bash
-# Instalar dependencias
+# Instalar dependencias modernas
 npm install
 
-# Linting local
-npm run lint
+# Linting completo (ambas versiones)
+npm test
 
-# Servidor local
+# Validar específicamente cada versión
+npx html-validate index.html es/index.html
+
+# Servidor local para desarrollo
 python -m http.server 8080
+
+# Abrir ambas versiones
+http://localhost:8080/          # Inglés
+http://localhost:8080/es/       # Español
 ```
 
 ### **Git Workflow:**
 ```bash
 # Crear feature branch
-git checkout -b feature/nueva-seccion
+git checkout -b feature/nueva-funcionalidad
 
-# Desarrollo...
+# Desarrollo multi-idioma...
 git add .
-git commit -m "feat: nueva sección de proyectos"
+git commit -m "feat: nueva sección en ambos idiomas"
 
-# Push y crear PR
-git push origin feature/nueva-seccion
+# Push y crear PR (activa pipeline)
+git push origin feature/nueva-funcionalidad
 ```
 
 ---
 
 ## 🎓 **Aprendizajes DevOps Demostrados**
 
-1. **Infrastructure as Code**: Pipeline completamente versionado
-2. **Continuous Integration**: Testing automático en cada commit
-3. **Continuous Deployment**: Deploy automático a producción
-4. **Quality Assurance**: Gates de calidad automatizados
-5. **Security**: Scanning y monitoreo continuo
-6. **Monitoring**: Métricas de performance automáticas
-7. **Documentation**: Procesos completamente documentados
+1. **Multi-language Architecture**: Internacionalización escalable
+2. **Modern Tooling**: Eliminación de vulnerabilidades y deprecations
+3. **Infrastructure as Code**: Pipeline completamente versionado
+4. **Continuous Integration**: Testing dual automático en cada commit
+5. **Continuous Deployment**: Deploy automático multi-idioma
+6. **Quality Assurance**: Gates de calidad para ambas versiones
+7. **Security**: Scanning y dependencias actualizadas
+8. **SEO & Performance**: Optimización internacional
+9. **Documentation**: Procesos completamente documentados
 
 ---
 
-## 🔗 **Enlaces Importantes**
+## 🔗 **URLs del Proyecto**
+
+- 🇺🇸 **CV Inglés**: https://ignazer.github.io/CV_IMG/
+- 🇪🇸 **CV Español**: https://ignazer.github.io/CV_IMG/es/
+- 🔧 **GitHub Actions**: https://github.com/ignazer/CV_IMG/actions
+- 📊 **Security**: https://github.com/ignazer/CV_IMG/security
+
+---
+
+*Última actualización: Agosto 2025 - Pipeline Multi-idioma v2.0*
 
 - **Repository**: [github.com/ignazer/CV_IMG](https://github.com/ignazer/CV_IMG)
 - **Live CV**: [ignazer.github.io/CV_IMG](https://ignazer.github.io/CV_IMG)
