@@ -79,8 +79,8 @@ jobs:
         run: |
           mkdir -p build
           cp index.html build/
-          cp styles.css build/
-          cp script.js build/
+          cp -r es/ build/
+          cp -r assets/ build/
           echo "Build: $(date)" > build/build-info.txt
           echo "Commit: $GITHUB_SHA" >> build/build-info.txt
           echo "Branch: $GITHUB_REF_NAME" >> build/build-info.txt
