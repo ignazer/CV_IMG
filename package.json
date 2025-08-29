@@ -1,0 +1,30 @@
+{
+  "name": "cv-ignacio-munoz",
+  "version": "1.0.0",
+  "description": "Professional CV with DevOps pipeline - Ignacio Muñoz",
+  "main": "index.html",
+  "private": true,
+  "scripts": {
+    "lint": "npm run lint:html && npm run lint:css",
+    "lint:html": "html-validate index.html",
+    "lint:css": "stylelint \"**/*.css\"",
+    "test": "npm run lint"
+  },
+  "keywords": [
+    "cv",
+    "resume",
+    "devops",
+    "cloud"
+  ],
+  "author": "Ignacio Muñoz <ig.mugonz@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "html-validate": "^8.24.1",
+    "stylelint": "^16.9.0",
+    "stylelint-config-standard": "^36.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
