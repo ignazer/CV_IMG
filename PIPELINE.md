@@ -292,4 +292,4 @@ git push origin feature/nueva-funcionalidad
 
 ---
 
-*Este pipeline demuestra competencias prácticas en DevOps, CI/CD, y automatización - skills esenciales para roles de DevOps Engineer, Cloud Support, y Site Reliability Engineer.*
+*Este pipeline demuestra competencias prácticas en DevOps, CI/CD, y automatización - skills  para roles de DevOps Engineer, Cloud Support, y Site Reliability Engineer.*
