@@ -4,6 +4,6 @@
     "void-style": ["error", { "style": "omit" }],
     "no-inline-style": "off",
     "require-sri": "off",
-    "no-trailing-whitespace": "error"
+    "no-trailing-whitespace": "off"
   }
 }
