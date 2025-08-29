@@ -108,13 +108,3 @@ python -m http.server 8080
 - **SEO**: International optimization with hreflang
 
 ---
-
-**Este proyecto demuestra competencias reales en DevOps, incluyendo pipelines modernos, arquitectura internacional y eliminación completa de vulnerabilidades.**
-
-# Servidor local
-python -m http.server 8080
-```
-
----
-
-*Este proyecto demuestra la implementación de prácticas DevOps modernas en un contexto simple pero profesional.*
